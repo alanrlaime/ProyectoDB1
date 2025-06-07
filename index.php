@@ -11,11 +11,11 @@
 session_start();
 require_once 'conexionDB.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nombre'], $_POST['Contrasena'])) {
-    $nombre = $_POST['Nombre'];
-    $contrasena = $_POST['Contrasena'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Clave'])) {
+    $nombre = $_POST['Usuario'];
+    $contrasena = $_POST['Clave'];
 
-    $sql = "SELECT * FROM usuario WHERE Nombre = ?";
+    $sql = "SELECT * FROM persona WHERE Usuario = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("s", $nombre);
     $stmt->execute();
@@ -23,9 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nombre'], $_POST['Con
 
     if ($resultado->num_rows === 1) {
         $fila = $resultado->fetch_assoc();
-        if ($contrasena === $fila['Contrasena']) {  // Validar la contraseña con password_verify, pero se requiere password_hash para almacenar contraseñas de forma segura
-            $_SESSION['Nombre'] = $fila['Nombre'];
-            $_SESSION['Rol'] = $fila['Rol'];
+        if ($contrasena === $fila['Clave']) {  // Validar la contraseña con password_verify, pero se requiere password_hash para almacenar contraseñas de forma segura
+            $_SESSION['Usuario'] = $fila['Usuario'];
         } else {
             $error = "Contraseña incorrecta.";
         }
@@ -36,15 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nombre'], $_POST['Con
 ?>
 
 
-<?php if (isset($_SESSION['Nombre'])): ?>
+<?php if (isset($_SESSION['Usuario'])): ?>
     
     <header>
         <div class="nav">
             <div>
                 <img src="img/logo.jpg" alt="logo-cea" class="img-max"><br>
-                <a href="db-conections/logout.php">Cerrar sesión</a>
+                <a href="logout.php">Cerrar sesión</a>
             </div>
-            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['Nombre']); ?> (<?php echo $_SESSION['Rol']; ?>)</h3>
+            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['Usuario']); ?> </h3>
             
             <img src="img/logo-min.png" alt="logo-min" class="img-min">
             
@@ -82,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nombre'], $_POST['Con
             <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
         <form method="post" action="">
             <label>Nombre:</label> <br>
-            <input type="text" name="Nombre" required><br>
+            <input type="text" name="Usuario" required><br>
             <label>Contraseña:</label> <br>
-            <input type="password" name="Contrasena" required><br>
+            <input type="password" name="Clave" required><br>
             <button type="submit">Entrar</button>
         </form>
     </div>

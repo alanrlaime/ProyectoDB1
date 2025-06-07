@@ -2,7 +2,7 @@
 $host = 'localhost';
 $usuario = 'root';
 $contrasena = '';
-$base_datos = 'sistema_estuciantes';
+$base_datos = 'seguimiento_academico';
 
 $conexion = new mysqli($host, $usuario, $contrasena, $base_datos);
 
