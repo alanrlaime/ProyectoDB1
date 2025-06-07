@@ -8,6 +8,7 @@
 <body>
 
 <?php
+// Inicio de sesión y conexión a la base de datos
 session_start();
 require_once 'conexionDB.php';
 
@@ -35,7 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Cl
 ?>
 
 
-<?php if (isset($_SESSION['Usuario'])): ?>
+<?php
+ // Si se inicio sesion correctamente, mostrar el contenido del sitio
+ if (isset($_SESSION['Usuario'])): ?>
     
     <header>
         <div class="nav">
@@ -45,21 +48,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Cl
             </div>
             <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['Usuario']); ?> </h3>
             
-            <img src="img/logo-min.png" alt="logo-min" class="img-min">
-            
-            <button><i class="fas fa-bars"></i></button>
-
+        <!-- Navegación, en ?p=nombreDeTemplateSinExtencion -->
         <ul class="enlaces">
             <li><a href="?p=initial">Inicio</a></li>
-            <li><a href="?p=tec">Carreras Tecnicas</a></li>
-            <li><a href="?p=hum">Humanidades</a></li>
+            <li><a href="?p=tec">Materias</a></li>
+            <li><a href="?p=hum">Docentes</a></li>
             <li><a href="?p=inscripciones">Inscripciones</a></li>
-            <li><a href="?p=Conv">Convocatorias</a></li>
-            <li><a href="?p=comuni">Comunicacion</a></li>
         </ul>
     </div>
     </header>
     <?php
+        // Cargar la plantilla según el parámetro 'p' en la URL
 
         $paginas = isset($_GET['p']) ? strtolower($_GET['p']) : 'Pages';
         if($paginas == 'Pages'){
@@ -75,6 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Cl
 
     
     <?php else: ?>
+
+    <!-- Si no se ha iniciado sesión, mostrar el formulario de inicio de sesión -->
     <div class="login">
         <h2>Iniciar Sesión</h2>
             
