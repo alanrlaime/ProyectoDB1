@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `seguimiento_academico`
 --
+CREATE DATABASE IF NOT EXISTS `seguimiento_academico` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `seguimiento_academico`;
 
 -- --------------------------------------------------------
 
