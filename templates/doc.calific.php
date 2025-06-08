@@ -27,6 +27,7 @@ $result = mysqli_query($conexion, $query);
         <th>Paralelo</th>
         <th>Aula</th>
         <th>Nota</th>
+        <th>Calificar</th>
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
     <tr>
@@ -36,6 +37,10 @@ $result = mysqli_query($conexion, $query);
         <td><?= $row['Paralelo'] ?></td>
         <td><?= $row['Aula'] ?></td>
         <td><?= $row['Nota'] ?></td>
+        <td>
+    <a href="templates/cruds/editar-nota.php?matricula=<?= $row['Matricula'] ?>&materia=<?= urlencode($row['Materia']) ?>">✏️</a>
+</td>
+
     </tr>
     <?php } ?>
 </table>

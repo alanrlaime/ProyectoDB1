@@ -19,16 +19,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
     // Detectar el rol según CI
     if (mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM Estudiante WHERE CI = '$ci'")) > 0) {
-        header("Location: templates/estudiante.php");
+        $_SESSION['Rol'] = 'Estudiante';
     } elseif (mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM Docente WHERE CI = '$ci'")) > 0) {
-        header("Location: templates/docente.php");
+        $_SESSION['Rol'] = 'Docente';
     } elseif (mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM Director_Carrera WHERE CI = '$ci'")) > 0) {
-        header("Location: templates/director.php");
+        $_SESSION['Rol'] = 'Director';
     } elseif (mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM Administrador WHERE CI = '$ci'")) > 0) {
-        header("Location: templates/admin.php");
+        $_SESSION['Rol'] = 'Administrador';
     } else {
         echo "Rol no identificado.";
     }
+    header("Location: index.php");
 
     exit();
 } else {

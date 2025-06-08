@@ -4,7 +4,7 @@
     box-sizing: border-box;
   }
 
-  body {
+  .form {
     background: #121212;
     color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +14,7 @@
     align-items: center;
   }
 
-  form {
+  .form form {
     background: #1f1f1f;
     padding: 32px 40px;
     border-radius: 16px;
@@ -26,7 +26,7 @@
     flex-direction: column;
   }
 
-  h1 {
+  .form form h1 {
     text-align: center;
     font-weight: 700;
     font-size: 1.8rem;
@@ -36,15 +36,15 @@
     text-shadow: 0 0 10px #82cfff44;
   }
 
-  label {
+  .form form label {
     margin-bottom: 6px;
     font-weight: 600;
     font-size: 0.9rem;
     color: #a0a0a0;
   }
 
-  input[type="text"],
-  input[type="password"] {
+  .form form input[type="text"],
+  .form form input[type="password"] {
     background: #292929;
     border: none;
     border-radius: 8px;
@@ -55,14 +55,14 @@
     transition: background-color 0.3s, box-shadow 0.3s;
   }
 
-  input[type="text"]:focus,
-  input[type="password"]:focus {
+  .form form input[type="text"]:focus,
+  .form form input[type="password"]:focus {
     background: #353535;
     outline: none;
     box-shadow: 0 0 8px 2px #82cfffaa;
   }
 
-  input[type="submit"] {
+  .form form input[type="submit"] {
     background: #82cfff;
     border: none;
     border-radius: 10px;
@@ -75,7 +75,7 @@
     user-select: none;
   }
 
-  input[type="submit"]:hover {
+  .form form input[type="submit"]:hover {
     background: #5ab0ff;
     transform: scale(1.05);
   }

@@ -8,38 +8,25 @@
 </head>
 <body>
 
-
-
 <?php
  // Si se inicio sesion correctamente, mostrar el contenido del sitio
- if (isset($_SESSION['nombre'])): ?>
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ if (isset($_SESSION['Rol'])): ?>
     
     <header>
-        <div class="nav">
-            <div>
-                <img src="img/logo.jpg" alt="logo-cea" class="img-max"><br>
-                <a href="./logout.php">Cerrar sesión</a>
-            </div>
-            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['User']); ?> </h3>
-            
-        <!-- Navegación, en ?p=nombreDeTemplateSinExtencion -->
-        <ul class="enlaces">
-            <li><a href="?p=initial">Inicio</a></li>
-            <li><a href="?p=tec">Materias</a></li>
-            <li><a href="?p=hum">Docentes</a></li>
-            <li><a href="?p=inscripciones">Inscripciones</a></li>
-        </ul>
+    <div class="user-info">
+        <img src="public/logo.png" alt="logo" class="img-max" width="100"><br>
+        <div>
+            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'])?> (<?php echo htmlspecialchars($_SESSION['Rol'])?>)</h3>
+            <a href="templates/cruds/editar-perfil.php?ci=<?php echo $_SESSION['ci']?>">Editar Perfil</a> <br>
+            <a href="./logout.php">Cerrar sesión</a>
+        </div>
     </div>
-    </header>
+        <!-- Navegación, en ?p=nombreDeTemplateSinExtencion -->
     <?php
-        // Cargar la plantilla según el parámetro 'p' en la URL
-
-        $paginas = isset($_GET['p']) ? strtolower($_GET['p']) : 'Pages';
-        if($paginas == 'Pages'){
-            require_once 'templates/paths.php';
-        } else {
-            require_once 'templates/'.$paginas.'.php';
-        }
+        require_once 'templates/paths.php';
     ?>
     <footer>
         <p>© 2023 Sistema Academico Universitario. Todos los derechos reservados.</p>
@@ -50,7 +37,8 @@
     <?php else: ?>
 
     <!-- Si no se ha iniciado sesión, mostrar el formulario de inicio de sesión -->
-        <form action="validar.php" method="post" autocomplete="off" novalidate>
+        <div class="form">
+            <form action="validar.php" method="post" autocomplete="off" novalidate>
     <h1>Iniciar Sesión</h1>
 
     <label for="usuario">Usuario</label>
@@ -61,6 +49,7 @@
 
     <input type="submit" value="Ingresar" />
   </form>
+        </div>
 <?php endif; ?>
 
 <?php

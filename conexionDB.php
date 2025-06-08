@@ -10,6 +10,6 @@ if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-echo "<script>console.log('Conexion')</script>";
+echo "<script>console.log('Conexion fine --©every')</script>";
 
 ?>

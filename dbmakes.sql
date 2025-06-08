@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2025 a las 07:29:30
+-- Tiempo de generación: 08-06-2025 a las 10:53:58
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `seguimiento_academico`
 --
-CREATE DATABASE IF NOT EXISTS `seguimiento_academico` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `seguimiento_academico`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `seguimiento_academico`;
 -- Estructura de tabla para la tabla `administrador`
 --
 
-DROP TABLE IF EXISTS `administrador`;
 CREATE TABLE `administrador` (
   `ID_Administrador` int(11) NOT NULL,
   `Cargo` varchar(50) NOT NULL,
@@ -50,7 +47,6 @@ INSERT INTO `administrador` (`ID_Administrador`, `Cargo`, `CI`) VALUES
 -- Estructura de tabla para la tabla `aula`
 --
 
-DROP TABLE IF EXISTS `aula`;
 CREATE TABLE `aula` (
   `ID_Aula` int(11) NOT NULL,
   `Numero` varchar(20) NOT NULL,
@@ -75,7 +71,6 @@ INSERT INTO `aula` (`ID_Aula`, `Numero`, `Capacidad`) VALUES
 -- Estructura de tabla para la tabla `carrera`
 --
 
-DROP TABLE IF EXISTS `carrera`;
 CREATE TABLE `carrera` (
   `ID_Carrera` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
@@ -88,7 +83,7 @@ CREATE TABLE `carrera` (
 --
 
 INSERT INTO `carrera` (`ID_Carrera`, `Nombre`, `Duracion`, `ID_Director`) VALUES
-(5000, 'Derecho', 10, 4000),
+(5000, 'Derecho', 8, 4000),
 (5001, 'Medicina', 12, 4001),
 (5002, 'Arquitectura', 9, 4002);
 
@@ -98,7 +93,6 @@ INSERT INTO `carrera` (`ID_Carrera`, `Nombre`, `Duracion`, `ID_Director`) VALUES
 -- Estructura de tabla para la tabla `contiene`
 --
 
-DROP TABLE IF EXISTS `contiene`;
 CREATE TABLE `contiene` (
   `ID_Materia` int(11) NOT NULL,
   `ID_Paralelo` int(11) NOT NULL
@@ -122,7 +116,6 @@ INSERT INTO `contiene` (`ID_Materia`, `ID_Paralelo`) VALUES
 -- Estructura de tabla para la tabla `director_carrera`
 --
 
-DROP TABLE IF EXISTS `director_carrera`;
 CREATE TABLE `director_carrera` (
   `ID_Director` int(11) NOT NULL,
   `CI` int(11) NOT NULL
@@ -143,7 +136,6 @@ INSERT INTO `director_carrera` (`ID_Director`, `CI`) VALUES
 -- Estructura de tabla para la tabla `docente`
 --
 
-DROP TABLE IF EXISTS `docente`;
 CREATE TABLE `docente` (
   `ID_Docente` int(11) NOT NULL,
   `Profesion` varchar(100) NOT NULL,
@@ -168,7 +160,6 @@ INSERT INTO `docente` (`ID_Docente`, `Profesion`, `CI`) VALUES
 -- Estructura de tabla para la tabla `estudiante`
 --
 
-DROP TABLE IF EXISTS `estudiante`;
 CREATE TABLE `estudiante` (
   `Matricula` int(11) NOT NULL,
   `CI` int(11) NOT NULL
@@ -246,7 +237,6 @@ INSERT INTO `estudiante` (`Matricula`, `CI`) VALUES
 -- Estructura de tabla para la tabla `imparte`
 --
 
-DROP TABLE IF EXISTS `imparte`;
 CREATE TABLE `imparte` (
   `ID_Docente` int(11) NOT NULL,
   `ID_Materia` int(11) NOT NULL
@@ -270,7 +260,6 @@ INSERT INTO `imparte` (`ID_Docente`, `ID_Materia`) VALUES
 -- Estructura de tabla para la tabla `inscrito`
 --
 
-DROP TABLE IF EXISTS `inscrito`;
 CREATE TABLE `inscrito` (
   `Matricula` int(11) NOT NULL,
   `ID_Materia` int(11) NOT NULL,
@@ -283,7 +272,7 @@ CREATE TABLE `inscrito` (
 
 INSERT INTO `inscrito` (`Matricula`, `ID_Materia`, `Nota`) VALUES
 (2000, 6000, 72.00),
-(2000, 6001, 45.00),
+(2000, 6001, 85.00),
 (2001, 6002, 88.00),
 (2001, 6003, 53.00),
 (2002, 6004, 91.00),
@@ -409,7 +398,6 @@ INSERT INTO `inscrito` (`Matricula`, `ID_Materia`, `Nota`) VALUES
 -- Estructura de tabla para la tabla `materia`
 --
 
-DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia` (
   `ID_Materia` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
@@ -435,7 +423,6 @@ INSERT INTO `materia` (`ID_Materia`, `Nombre`, `Semestre`, `ID_Carrera`) VALUES
 -- Estructura de tabla para la tabla `paralelo`
 --
 
-DROP TABLE IF EXISTS `paralelo`;
 CREATE TABLE `paralelo` (
   `ID_Paralelo` int(11) NOT NULL,
   `Letra` char(1) NOT NULL,
@@ -462,7 +449,6 @@ INSERT INTO `paralelo` (`ID_Paralelo`, `Letra`, `Turno`, `ID_Materia`, `ID_Aula`
 -- Estructura de tabla para la tabla `persona`
 --
 
-DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `CI` int(11) NOT NULL,
   `Paterno` varchar(50) NOT NULL,
@@ -562,7 +548,6 @@ INSERT INTO `persona` (`CI`, `Paterno`, `Materno`, `Nombre`, `Sexo`, `Fecha_Naci
 -- Estructura de tabla para la tabla `tiene`
 --
 
-DROP TABLE IF EXISTS `tiene`;
 CREATE TABLE `tiene` (
   `ID_Materia` int(11) NOT NULL,
   `ID_Carrera` int(11) NOT NULL
