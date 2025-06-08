@@ -4,49 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Academico Universitario</title>
+    <link rel="stylesheet" href="styles/login.style.css">
 </head>
 <body>
 
-<?php
-// Inicio de sesión y conexión a la base de datos
-session_start();
-require_once 'conexionDB.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Clave'])) {
-    $nombre = $_POST['Usuario'];
-    $contrasena = $_POST['Clave'];
-
-    $sql = "SELECT * FROM persona WHERE Usuario = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $nombre);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-
-    if ($resultado->num_rows === 1) {
-        $fila = $resultado->fetch_assoc();
-        if ($contrasena === $fila['Clave']) {  // Validar la contraseña con password_verify, pero se requiere password_hash para almacenar contraseñas de forma segura
-            $_SESSION['Usuario'] = $fila['Usuario'];
-        } else {
-            $error = "Contraseña incorrecta.";
-        }
-    } else {
-        $error = "Usuario no encontrado.";
-    }
-}
-?>
 
 
 <?php
  // Si se inicio sesion correctamente, mostrar el contenido del sitio
- if (isset($_SESSION['Usuario'])): ?>
+ if (isset($_SESSION['nombre'])): ?>
     
     <header>
         <div class="nav">
             <div>
                 <img src="img/logo.jpg" alt="logo-cea" class="img-max"><br>
-                <a href="logout.php">Cerrar sesión</a>
+                <a href="./logout.php">Cerrar sesión</a>
             </div>
-            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['Usuario']); ?> </h3>
+            <h3>Bienvenido, <?php echo htmlspecialchars($_SESSION['User']); ?> </h3>
             
         <!-- Navegación, en ?p=nombreDeTemplateSinExtencion -->
         <ul class="enlaces">
@@ -62,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Cl
 
         $paginas = isset($_GET['p']) ? strtolower($_GET['p']) : 'Pages';
         if($paginas == 'Pages'){
-            require_once 'templates/inicio.php';
+            require_once 'templates/paths.php';
         } else {
             require_once 'templates/'.$paginas.'.php';
         }
@@ -76,18 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Usuario'], $_POST['Cl
     <?php else: ?>
 
     <!-- Si no se ha iniciado sesión, mostrar el formulario de inicio de sesión -->
-    <div class="login">
-        <h2>Iniciar Sesión</h2>
-            
-            <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-        <form method="post" action="">
-            <label>Nombre:</label> <br>
-            <input type="text" name="Usuario" required><br>
-            <label>Contraseña:</label> <br>
-            <input type="password" name="Clave" required><br>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
+        <form action="validar.php" method="post" autocomplete="off" novalidate>
+    <h1>Iniciar Sesión</h1>
+
+    <label for="usuario">Usuario</label>
+    <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required autocomplete="username" />
+
+    <label for="contraseña">Contraseña</label>
+    <input type="password" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required autocomplete="current-password" />
+
+    <input type="submit" value="Ingresar" />
+  </form>
 <?php endif; ?>
 
 <?php
